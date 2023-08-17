@@ -1,0 +1,81 @@
+.select-container {
+  display: flex;
+  flex-direction: column;
+  width: 29%;
+  padding: 2.2rem 3.1rem;
+  background: white;
+  margin-top: 3rem;
+  gap: 0.2rem;
+  height: 20rem;
+}
+
+.select-container span {
+  color: grey;
+  font-size: 0.85rem;
+}
+
+.select-component {
+  z-index: 2;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.select-header {
+  height: 2.4rem;
+  align-items: center;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 0 1rem 0 1rem;
+  border-radius: 2px;
+  background: rgb(244, 244, 244);
+  border-bottom: 1.5px solid rgb(165, 165, 165);
+}
+
+.select-header h5 {
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+.select-component ul {
+  width: 100%;
+  background: white;
+  border: 3px solid;
+  border-image: linear-gradient(#1164ff, #4080ee) 1;
+  position: absolute;
+  top: 60%;
+  left: -3px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  transition: all 200ms ease;
+  justify-content: left;
+  max-height: 15rem;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.select-component ul::-webkit-scrollbar {
+  display: none;
+}
+
+.select-component ul li {
+  padding: 0.9rem 1rem;
+}
+
+.select-component ul li:hover {
+  background: rgb(244, 244, 244);
+}
+
+.selected {
+  background: rgb(244, 244, 244);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
