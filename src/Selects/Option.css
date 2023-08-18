@@ -1,0 +1,17 @@
+.option {
+  display: flex;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 3px;
+  background: rgb(215, 215, 215);
+  height: 2rem;
+  padding:0 0.4rem;
+  width: fit-content;
+  gap: 0.3rem;
+}
+
+.delete.btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
