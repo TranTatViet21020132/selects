@@ -1,12 +1,18 @@
-import React, {useState, useEffect} from "react";
-import {BsChevronDown, BsChevronUp} from 'react-icons/bs'
-import {GoCheck} from 'react-icons/go'
-import {VscClose} from 'react-icons/vsc'
-import Option from './Option'
-import './Selects.css'
+import React, { useState, useEffect } from "react";
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
+import { GoCheck } from 'react-icons/go';
+import { VscClose } from 'react-icons/vsc';
+import Option from "./Option";
+import './Selects.css';
 
-const Selects = () => {
-  const options = [
+type OptionType = {
+  id: number;
+  value: string;
+  label: string;
+};
+
+const Selects: React.FC = () => {
+  const options: OptionType[] = [
     { id: 1, value: 'Chocolate', label: 'Chocolate' },
     { id: 2, value: 'Strawberry', label: 'Strawberry' },
     { id: 3, value: 'Vanilla', label: 'Vanilla' },
@@ -21,7 +27,7 @@ const Selects = () => {
     { id: 12, value: 'Cake', label: 'Cake' },
   ];
 
-  const [selectedOptions, setSelectedOptions] = useState(() => {
+  const [selectedOptions, setSelectedOptions] = useState<OptionType[]>(() => {
     const savedOptions = localStorage.getItem("selectedOptions");
     if (savedOptions) {
       try {
@@ -40,15 +46,11 @@ const Selects = () => {
   }, [selectedOptions]);
 
   const [stateChange, setStateChange] = useState(false);
-
-  const [valueAvailable, setAvailable] = useState(false);
   
-  const [isVisible, setVisible] = useState(
-    {
-      visibility: 'hidden',
-      opacity: 0
-    }
-  );
+  const [isVisible, setVisible] = useState<React.CSSProperties>({
+    visibility: 'hidden',
+    opacity: 0
+  });
 
   const handleSelect = () => {
     setStateChange(!stateChange);
@@ -59,9 +61,8 @@ const Selects = () => {
     }));
   };
 
-  const handleOptionClick = (selectedValue) => {
-    setAvailable(true);
-    const option = {
+  const handleOptionClick = (selectedValue: OptionType) => {
+    const option: OptionType = {
       id: selectedValue.id,
       value: selectedValue.value,
       label: selectedValue.label,
@@ -78,10 +79,9 @@ const Selects = () => {
   
   const handleOptionClose = () => {
     setSelectedOptions([]);
-    setAvailable(false);
   };
 
-  const deleteOption = (id) => {
+  const deleteOption = (id: number) => {
     setSelectedOptions(selectedOptions.filter((option) => option.id !== id));
   };
 
@@ -96,17 +96,18 @@ const Selects = () => {
             {
               selectedOptions.map((singleOption) => 
                 <Option 
-                id = {singleOption.id}
-                value = {singleOption.value}
-                label = {singleOption.label}
-                deleteOption = {deleteOption}
+                  key={singleOption.id}
+                  id={singleOption.id}
+                  value={singleOption.value}
+                  label={singleOption.label}
+                  deleteOption={deleteOption}
                 />
               )
             }
           </div>
           <div className="select-header-btns">
             <div className="close btn">
-              {valueAvailable === true ? <VscClose onClick={handleOptionClose}/> : ""}
+              {selectedOptions.length != 0 ? <VscClose onClick={handleOptionClose}/> : ""}
             </div>
             <div className="expand btn">
               {stateChange === false ? <BsChevronDown /> : <BsChevronUp />}
@@ -133,9 +134,7 @@ const Selects = () => {
         </ul>
       </div>
     </div>
-    
-  )
-  
+  );
 }
 
 export default Selects;

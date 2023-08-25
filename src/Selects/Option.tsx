@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import './Option.css';
 import { SlClose } from 'react-icons/sl';
 
-function Option(props) {
-  const handleDeleteOption = (event) => {
+interface OptionProps {
+  id: number;
+  value: string;
+  label: string;
+  deleteOption: (id: number) => void;
+}
+
+function Option(props: OptionProps) {
+  const handleDeleteOption = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     props.deleteOption(props.id);
   };
