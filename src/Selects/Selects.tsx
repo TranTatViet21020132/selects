@@ -11,7 +11,11 @@ type OptionType = {
   label: string;
 };
 
-const Selects: React.FC = () => {
+type SelectsProps = {
+  selectionMode: "Single" | "Multiple";
+};
+
+const Selects: React.FC<SelectsProps> = ({ selectionMode }) => {
   const options: OptionType[] = [
     { id: 1, value: 'Chocolate', label: 'Chocolate' },
     { id: 2, value: 'Strawberry', label: 'Strawberry' },
@@ -67,15 +71,32 @@ const Selects: React.FC = () => {
       value: selectedValue.value,
       label: selectedValue.label,
     };
-    const isOptionSelected = selectedOptions.some(
-      (selectedOption) => selectedOption.id === option.id
-    );
-    if (isOptionSelected) {
-      setSelectedOptions(selectedOptions.filter((selectedOption) => selectedOption.id !== option.id));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
+  
+    if (selectionMode === "Single") {
+      const isOptionSelected = selectedOptions.some(
+        (selectedOption) => selectedOption.id === option.id
+      );
+  
+      if (isOptionSelected) {
+        setSelectedOptions([]);
+      } else {
+        setSelectedOptions([option]);
+      }
+    }
+  
+    if (selectionMode === "Multiple") {
+      const isOptionSelected = selectedOptions.some(
+        (selectedOption) => selectedOption.id === option.id
+      );
+  
+      if (isOptionSelected) {
+        setSelectedOptions(selectedOptions.filter((selectedOption) => selectedOption.id !== option.id));
+      } else {
+        setSelectedOptions([...selectedOptions, option]);
+      }
     }
   };
+  
   
   const handleOptionClose = () => {
     setSelectedOptions([]);
@@ -90,6 +111,7 @@ const Selects: React.FC = () => {
       <span>
         Label
       </span>
+      
       <div className="select-component">
         <div className="select-header" onClick={handleSelect}>
           <div className="select-values-container">

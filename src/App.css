@@ -1,5 +1,74 @@
 .App {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
+  align-items: center;
+}
+
+.mode-toggle__container {
+  z-index: 4;
+  width: 12rem;
+  position: relative;
+  cursor: pointer;
+  border-radius: 2px;
+  margin: auto;
+  background: white;
+  
+}
+
+.mode-toggle__header {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 2px;
+  align-items: center;
+  height: 2rem;
+}
+
+.mode-toggle__header h5 {
+  font-weight: normal;
+}
+
+.mode-toggle__container ul {
+  background: white;
+  width: 12rem;
+  z-index: 3;
+  position: absolute;
+  top: 60%;
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 200ms ease;
+  border-radius: 2px;
+  align-items: center;
+  justify-content: left;
+  box-shadow: 0px 0px 10px grey;
+}
+
+.mode-toggle__container:hover > ul {
+  visibility: visible;
+  opacity: 1;
+}
+
+.mode-toggle__container ul li {
+  padding: 1rem;
+  background: var(--color-gray-900);
+  width: 100%;
+  margin-left: 1rem;
+}
+
+.mode-toggle__container ul li:hover {
+  color: #ee4d2d;
+}
+
+.mode-toggle__container ul li.active {
+  width: 92%;
+  margin-left: 0.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
