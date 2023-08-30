@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 import { GoCheck } from 'react-icons/go';
 import { VscClose } from 'react-icons/vsc';
@@ -13,42 +14,12 @@ type OptionType = {
 
 type SelectsProps = {
   selectionMode: "Single" | "Multiple";
+  selectedOptions: OptionType[];
+  setSelectedOptions: Dispatch<SetStateAction<OptionType[]>>;
+  options: OptionType[];
 };
 
-const Selects: React.FC<SelectsProps> = ({ selectionMode }) => {
-  const options: OptionType[] = [
-    { id: 1, value: 'Chocolate', label: 'Chocolate' },
-    { id: 2, value: 'Strawberry', label: 'Strawberry' },
-    { id: 3, value: 'Vanilla', label: 'Vanilla' },
-    { id: 4, value: 'Coffee', label: 'Coffee' },
-    { id: 5, value: 'Tea', label: 'Tea' },
-    { id: 6, value: 'Apple', label: 'Apple' },
-    { id: 7, value: 'Peanut', label: 'Peanut' },
-    { id: 8, value: 'Butter', label: 'Butter' },
-    { id: 9, value: 'Honey', label: 'Honey' },
-    { id: 10, value: 'Milk', label: 'Milk' },
-    { id: 11, value: 'Matcha', label: 'Matcha' },
-    { id: 12, value: 'Cake', label: 'Cake' },
-  ];
-
-  const [selectedOptions, setSelectedOptions] = useState<OptionType[]>(() => {
-    const savedOptions = localStorage.getItem("selectedOptions");
-    if (savedOptions) {
-      try {
-        return JSON.parse(savedOptions);
-      } catch (error) {
-        console.error("Error parsing saved options:", error);
-        return [];
-      }
-    } else {
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem("selectedOptions", JSON.stringify(selectedOptions));
-  }, [selectedOptions]);
-
+const Selects: React.FC<SelectsProps> = ({ selectionMode, selectedOptions, setSelectedOptions, options }) => {
   const [stateChange, setStateChange] = useState(false);
   
   const [isVisible, setVisible] = useState<React.CSSProperties>({
@@ -129,7 +100,7 @@ const Selects: React.FC<SelectsProps> = ({ selectionMode }) => {
           </div>
           <div className="select-header-btns">
             <div className="close btn">
-              {selectedOptions.length != 0 ? <VscClose onClick={handleOptionClose}/> : ""}
+              {selectedOptions.length !== 0 ? <VscClose onClick={handleOptionClose}/> : ""}
             </div>
             <div className="expand btn">
               {stateChange === false ? <BsChevronDown /> : <BsChevronUp />}
